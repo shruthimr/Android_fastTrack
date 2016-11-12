@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.example.shruthir.flicks.Models.Movie;
 import com.example.shruthir.flicks.R;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -50,6 +51,9 @@ public class MovieArrayAdapter extends ArrayAdapter<Movie> {
 
         textViewTitle.setText(movie.getOriginalTitle());
         textViewSummary.setText(movie.getOverView());
+
+        String imageUri = "https://i.imgur.com/tGbaZCY.jpg";
+        Picasso.with(getContext()).load(imageUri).into(ivImage);
 
         if (!isLandspace()) {
             with(getContext()).load(movie.getPosterPath()).into(ivImage);
