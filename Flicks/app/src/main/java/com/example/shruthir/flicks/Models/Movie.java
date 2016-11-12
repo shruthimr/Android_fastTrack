@@ -27,10 +27,15 @@ public class Movie {
         return overView;
     }
 
+    public double getRating() {
+        return rating;
+    }
+
     String posterPath;
     String backdropPath;
     String originalTitle;
     String overView;
+    double rating;
 
     public Movie(JSONObject jsonObject) throws JSONException
     {
@@ -38,6 +43,7 @@ public class Movie {
         this.backdropPath = jsonObject.getString("backdrop_path");
         this.originalTitle = jsonObject.getString("original_title");
         this.overView = jsonObject.getString("overview");
+        this.rating = jsonObject.getDouble("vote_average");
     }
 
     public static ArrayList<Movie> parseMovieArray (JSONArray jsonArray)
@@ -47,7 +53,9 @@ public class Movie {
         for(int i =0 ; i < jsonArray.length() ; i++)
         {
             try {
-                results.add(new Movie(jsonArray.getJSONObject(i)));
+                Movie movie = new Movie(jsonArray.getJSONObject(i));
+                if(!movie.getOriginalTitle().equals("Hacksaw Ridge"))
+                    results.add(movie);
             } catch (JSONException e) {
                 e.printStackTrace();
             }

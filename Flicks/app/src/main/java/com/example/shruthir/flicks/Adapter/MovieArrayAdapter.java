@@ -33,10 +33,14 @@ public class MovieArrayAdapter extends ArrayAdapter<Movie> {
     public View getView(int position, View convertView, ViewGroup parent) {
         Movie movie = getItem(position);
 
+
         if(convertView == null)
         {
             LayoutInflater inflater = LayoutInflater.from(getContext());
-            convertView = inflater.inflate(R.layout.item_movie, parent, false);
+            if (isLandspace() && isRatingLow(movie) )
+                convertView = inflater.inflate(R.layout.item_movie_low_rating, parent, false);
+            else
+                convertView = inflater.inflate(R.layout.item_movie, parent, false);
         }
 
         ImageView ivImage = (ImageView) convertView.findViewById(R.id.ivMovieImage);
@@ -47,13 +51,26 @@ public class MovieArrayAdapter extends ArrayAdapter<Movie> {
         textViewTitle.setText(movie.getOriginalTitle());
         textViewSummary.setText(movie.getOverView());
 
-        int orientation = getContext().getResources().getConfiguration().orientation;
-        if (orientation == Configuration.ORIENTATION_PORTRAIT) {
+        if (!isLandspace()) {
             with(getContext()).load(movie.getPosterPath()).into(ivImage);
-        } else if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
-            with(getContext()).load(movie.getBackdropPath()).into(ivImage);
+        } else if (isLandspace()) {
+            if (isRatingLow(movie))
+                with(getContext()).load(movie.getPosterPath()).into(ivImage);
+            else
+                with(getContext()).load(movie.getBackdropPath()).into(ivImage);
         }
         return convertView;
 
+    }
+
+    public Boolean isLandspace()
+    {
+        int orientation = getContext().getResources().getConfiguration().orientation;
+        return orientation == Configuration.ORIENTATION_LANDSCAPE;
+    }
+
+    public Boolean isRatingLow(Movie movie)
+    {
+        return movie.getRating() <=5.0 ;
     }
 }
