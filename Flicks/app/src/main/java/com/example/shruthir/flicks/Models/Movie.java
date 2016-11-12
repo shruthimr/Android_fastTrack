@@ -17,7 +17,7 @@ public class Movie {
     }
 
     public String getBackdropPath() {
-        return String.format("https://image.tmdb.org/t/p/w342/%s",backdropPath);
+        return String.format("https://image.tmdb.org/t/p/w600/%s",backdropPath);
     }
     public String getOriginalTitle() {
         return originalTitle;
