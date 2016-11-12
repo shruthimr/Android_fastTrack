@@ -11,10 +11,13 @@
         <item name="android:textSize">20sp</item>
         <item name="android:textStyle">normal|bold</item>
         <item name="android:background">@android:color/transparent</item>
+        <item name="android:inputType">textNoSuggestions</item>
+
     </style>
     <style name="SummaryStyle">
         <item name="android:textSize">12sp</item>
         <item name="android:textStyle">normal</item>
         <item name="android:background">@android:color/transparent</item>
+        <item name="android:inputType">textNoSuggestions</item>
     </style>
 </resources>
